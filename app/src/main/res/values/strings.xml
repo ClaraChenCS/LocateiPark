@@ -10,6 +10,7 @@
     <string name="notification">Notification</string>
     <string name="title_activity_main_map">Locate iPark</string>
     <string name="title_activity_main_map_view">Map</string>
+    
 
     <!--    Permissions    -->
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
