@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,9 +26,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -74,6 +83,13 @@ public class MainMap extends AppCompatActivity
 
     private final static int PLAY_SERVICE_RESOLUTION_REQUEST = 1000;
 
+    //variables for drawerlist
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private String mActivityTitle;
+
     private static Toolbar toolbar;
 
     @Override
@@ -83,6 +99,27 @@ public class MainMap extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        mDrawerLayout =(DrawerLayout)findViewById(R.id.left_nav_drawer);
+        mActivityTitle = getTitle().toString();
+
+        addDrawerItems();
+        setupDrawer();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+
+        /**
+         * Method to listen item selection on NavBar
+         */
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainMap.this, "One Item Selected!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         gps = new GPSTracker(MainMap.this);
@@ -107,9 +144,47 @@ public class MainMap extends AppCompatActivity
 
     }
 
+    /**
+     *  add items and configure the list of NavBar
+     */
+    private void addDrawerItems() {
+        String [] leftNavBarArray = {"Parking Info","Notification","Settings"};
+        mAdapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, leftNavBarArray);
+        mDrawerList.setAdapter(mAdapter);
 
+        /**
+         * Method to listen item selection on NavBar
+         */
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainMap.this, "One Item Selected!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+    }
 
+    private void setupDrawer(){
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, R.string.drawer_open,R.string.drawer_close){
+
+            //** Called when a drawer has settled in a completely open state */
+            public void onDrawerOpened(View drawerView){
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("More..");
+                invalidateOptionsMenu(); //create all to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in completely closed state */
+            public void onDrawerClosed(View view){
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // create call to onPrepareOptionMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+    }
 
 
     @Override
@@ -181,6 +256,46 @@ public class MainMap extends AppCompatActivity
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home_screen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
