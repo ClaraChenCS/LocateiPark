@@ -1,49 +1,42 @@
 {
   "project_info": {
-    "project_id": "locate-ipark",
-    "project_number": "54096282272",
-    "name": "Locate iPark"
+    "project_number": "50002237409",
+    "project_id": "locateipark"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:54096282272:android:27d689d63f1b7a06",
-        "client_id": "android:com.google.samples.quickstart.signin",
-        "client_type": 1,
+        "mobilesdk_app_id": "1:50002237409:android:d69b4a745b726010",
         "android_client_info": {
-          "package_name": "com.example.clarachen.locateipark",
-          "certificate_hash": []
+          "package_name": "com.example.clarachen.locateipark"
         }
       },
       "oauth_client": [
         {
-          "client_id": "54096282272-o5gr4evepq5dk2143t5br812vo046nm4.apps.googleusercontent.com",
+          "client_id": "50002237409-ps24nk59t0h43ap5l8c0uv8sid14egdn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.google.samples.quickstart.signin",
-            "certificate_hash": "9FBADDE05EE9BBBA3CEE733CCCCE0EA124DC42A8"
+            "package_name": "com.example.clarachen.locateipark",
+            "certificate_hash": "5F345E0AF0B8FF2F9F33D6EBED368DA3F926798F"
           }
         },
         {
-          "client_id": "54096282272-agvr7pjs6d3oc0dm4hb6jmg4ccgmalqr.apps.googleusercontent.com",
+          "client_id": "50002237409-egg1omgig5o4b7idp4j9shk6l4neuif3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAX5PRVLUS03vbm-wRabdB7KOc_zTsASU"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
         },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 2
         },
         "ads_service": {
           "status": 1
@@ -51,6 +44,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }
