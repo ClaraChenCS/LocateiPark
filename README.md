@@ -23,3 +23,8 @@ App Architecture
     1. get latlng location from Network connectivity. if not, from GPS. 
     
 2. Implementation of Navigation (Drawer)Bar on the left
+
+
+For updating after every pull from github,
+
+1. change google API Keys and SHA-1 key in /values/google-services.xml with your own keys.
